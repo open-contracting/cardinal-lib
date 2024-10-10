@@ -26,6 +26,7 @@ use crate::indicators::r035::R035;
 use crate::indicators::r036::R036;
 use crate::indicators::r038::R038;
 use crate::indicators::r048::R048;
+use crate::indicators::r055::R055;
 use crate::indicators::r058::R058;
 use crate::indicators::util::{SecondLowestBidRatio, Tenderers};
 pub use crate::indicators::{Calculate, Codelist, Exclusions, Group, Indicator, Indicators, Modifications, Settings};
@@ -143,6 +144,11 @@ pub fn init(path: &PathBuf, force: &bool) -> std::io::Result<bool> {
 ; threshold = 10
 ; minimum_contracting_processes = 20
 
+[R055]
+; threshold = 66593
+; start_date = 2022-01-01
+; end_date = 2022-12-31
+
 [R058]
 ; threshold = 0.5
 ";
@@ -254,6 +260,7 @@ impl Indicators {
             R036,
             R038,
             R048,
+            R055,
             R058,
         );
 

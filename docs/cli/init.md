@@ -118,6 +118,11 @@ $ ocdscardinal init -
 ; threshold = 10
 ; minimum_contracting_processes = 20
 
+[R055]
+; threshold = 66593
+; start_date = 2022-01-01
+; end_date = 2022-12-31
+
 [R058]
 ; threshold = 0.5
 

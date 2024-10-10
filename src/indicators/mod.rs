@@ -8,15 +8,17 @@ pub mod r035;
 pub mod r036;
 pub mod r038;
 pub mod r048;
+pub mod r055;
 pub mod r058;
 pub mod util;
 
 use std::collections::{HashMap, HashSet};
 use std::ops::AddAssign;
 
+use chrono::NaiveDate;
 use indexmap::IndexMap;
 use serde::ser::SerializeMap;
-use serde::{Deserialize, Serialize, Serializer};
+use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::{Map, Value};
 
 // Settings.
@@ -121,6 +123,32 @@ pub struct R048 {
 
 #[derive(Clone, Debug, Default, Deserialize)]
 #[serde(deny_unknown_fields)]
+pub struct R055 {
+    pub threshold: Option<f64>,
+    #[serde(deserialize_with = "naive_date_from_str")]
+    pub start_date: Option<NaiveDate>,
+    #[serde(deserialize_with = "naive_date_from_str")]
+    pub end_date: Option<NaiveDate>,
+}
+
+// https://serde.rs/field-attrs.html#deserialize_with
+fn naive_date_from_str<'de, D>(deserializer: D) -> Result<Option<NaiveDate>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let s: Option<String> = Option::deserialize(deserializer)?;
+    s.map_or_else(
+        || Ok(None),
+        |s| {
+            NaiveDate::parse_from_str(&s, "%Y-%m-%d")
+                .map(Some)
+                .map_err(de::Error::custom)
+        },
+    )
+}
+
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(deny_unknown_fields)]
 #[allow(non_snake_case)]
 pub struct Settings {
     // prepare command.
@@ -144,6 +172,7 @@ pub struct Settings {
     pub R036: Option<Empty>,
     pub R038: Option<R038>,
     pub R048: Option<R048>,
+    pub R055: Option<R055>,
     pub R058: Option<FloatThreshold>, // ratio
 }
 
@@ -169,6 +198,7 @@ pub enum Indicator {
     R036,
     R038,
     R048,
+    R055,
     R058,
 }
 
@@ -216,6 +246,12 @@ pub struct Indicators {
     pub r038_tenderer: HashMap<String, Fraction>,
     /// The item classifications for each `bids/details/tenderers/id`.
     pub r048_classifications: HashMap<String, (usize, HashSet<String>)>,
+    /// The `tender/value/amount` for each `ocid` when `tender/procurementMethod` is 'open'.
+    pub r055_open_tender_amount: HashMap<String, f64>,
+    /// The total awarded amount for each `buyer/id` and `awards/suppliers/id` when `tender/procurementMethod` is 'direct'.
+    pub r055_direct_awarded_amount_supplier_buyer: HashMap<(String, String), f64>,
+    /// The total awarded amount for each `tender/procuringEntity/id` and `awards/suppliers/id` when `tender/procurementMethod` is 'direct'.    
+    pub r055_direct_awarded_amount_supplier_procuring_entity: HashMap<(String, String), f64>,
     /// Whether to map contracting processes to organizations.
     pub map: bool,
 }
