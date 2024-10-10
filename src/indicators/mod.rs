@@ -7,6 +7,7 @@ pub mod r030;
 pub mod r035;
 pub mod r036;
 pub mod r038;
+pub mod r044;
 pub mod r048;
 pub mod r058;
 pub mod util;
@@ -143,6 +144,7 @@ pub struct Settings {
     pub R035: Option<IntegerThreshold>, // count
     pub R036: Option<Empty>,
     pub R038: Option<R038>,
+    pub R044: Option<Empty>,
     pub R048: Option<R048>,
     pub R058: Option<FloatThreshold>, // ratio
 }
@@ -168,6 +170,7 @@ pub enum Indicator {
     R035,
     R036,
     R038,
+    R044,
     R048,
     R058,
 }

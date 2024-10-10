@@ -25,6 +25,7 @@ use crate::indicators::r030::R030;
 use crate::indicators::r035::R035;
 use crate::indicators::r036::R036;
 use crate::indicators::r038::R038;
+use crate::indicators::r044::R044;
 use crate::indicators::r048::R048;
 use crate::indicators::r058::R058;
 use crate::indicators::util::{SecondLowestBidRatio, Tenderers};
@@ -137,6 +138,8 @@ pub fn init(path: &PathBuf, force: &bool) -> std::io::Result<bool> {
 ; threshold = 0.5
 ; minimum_submitted_bids = 2
 ; minimum_contracting_processes = 2
+
+[R044]
 
 [R048]
 ; digits = 2
@@ -253,6 +256,7 @@ impl Indicators {
             R035,
             R036,
             R038,
+            R044,
             R048,
             R058,
         );

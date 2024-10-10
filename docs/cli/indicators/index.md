@@ -320,6 +320,9 @@ R/index
 * - [R038](R/038)
   - [Excessive disqualified bids](R/038)
   - The ratio of disqualified bids to submitted bids is a high outlier per buyer, procuring entity or tenderer.
+* - [R044](R/044)
+  - [Business similarities between suppliers](R/044)
+  - Different tenderers bidding for the same contracting process have similar information.
 * - [R048](R/048)
   - [Heterogeneous supplier](R/048)
   - The variety of items supplied by a tenderer is a high outlier.

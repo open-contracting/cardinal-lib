@@ -15,6 +15,7 @@
   - [R018](cli/indicators/R/018): (*Single bid received*).
   - [R028](cli/indicators/R/028): (*Identical bid prices*).
   - [R030](cli/indicators/R/030): (*Late bid won*).
+  - [R044](cli/indicators/R/048): (*Business similarities between suppliers*).
   - [R048](cli/indicators/R/048): (*Heterogeneous supplier*).
   - [R058](cli/indicators/R/058): (*Heavily discounted bid*).
   - Add `no_price_comparison_procurement_methods` configuration.
